@@ -1,18 +1,17 @@
 import numpy as np
 import pandas as pd
-import sklearn.metrics
-from sklearn.decomposition import PCA
-import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import mean_squared_error, roc_curve, auc
+from sklearn.metrics import classification_report, plot_confusion_matrix
+import matplotlib.pyplot as plt
+from pca import digits_pca
 
-digits = pd.read_csv('data/train.csv')
+# digits = pd.read_csv('data/train.csv')
 
-x_train = digits.iloc[0:30000, 1:]
-x_val = digits.iloc[30000:, 1:]
+x = digits_pca.iloc[:, 1:]
+y = digits_pca.loc[:, 'label']
 
-y_train = digits.loc[0:29999, 'label']
-y_val = digits.loc[30000:, 'label']
+x_train, x_val, y_train, y_val = train_test_split(x, y, test_size=0.2)
 
 print(len(x_train))
 print(len(y_train))
@@ -24,12 +23,13 @@ knn = KNeighborsClassifier(50)
 knn.fit(x_train, y_train)
 predicted = knn.predict(x_val)
 
-# # plt.scatter(x, y, alpha=0.1)
-# plt.plot(x[3:10], knn.predict(x[3:10]), label='knn 10')
-# plt.show()
-# print('MSE knn', mean_squared_error(y, knn.predict(x)))
+scores = cross_val_score(knn, x_val, y_val, cv=5)
+print('scores per fold ', scores)
+print('mean score    ', np.mean(scores))
+print('standard dev. ', np.std(scores))
 
-print(sklearn.metrics.classification_report(y_val, predicted))
+print(classification_report(y_val, predicted))
 
-confusion_matrix = sklearn.metrics.plot_confusion_matrix(knn, x_val, y_val)
+confusion_matrix = plot_confusion_matrix(knn, x_val, y_val)
+confusion_matrix.figure_.suptitle("K-nearest Neighbours Confusion Matrix")
 plt.show()
