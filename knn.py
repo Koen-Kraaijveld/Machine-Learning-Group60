@@ -19,7 +19,7 @@ print(len(y_train))
 print(len(x_val))
 print(len(y_val))
 
-knn = KNeighborsClassifier(50)
+knn = KNeighborsClassifier(7)
 knn.fit(x_train, y_train)
 predicted = knn.predict(x_val)
 
@@ -30,6 +30,6 @@ print('standard dev. ', np.std(scores))
 
 print(classification_report(y_val, predicted))
 
-confusion_matrix = plot_confusion_matrix(knn, x_val, y_val)
+confusion_matrix = plot_confusion_matrix(knn, x_val, y_val, normalize='true', values_format='.2f')
 confusion_matrix.figure_.suptitle("K-nearest Neighbours Confusion Matrix")
 plt.show()

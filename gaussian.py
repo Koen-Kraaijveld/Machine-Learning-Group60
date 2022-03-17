@@ -30,6 +30,6 @@ print('standard dev. ', np.std(scores))
 
 print(classification_report(y_val, predicted))
 
-confusion_matrix = plot_confusion_matrix(gnb, x_val, y_val)
+confusion_matrix = plot_confusion_matrix(gnb, x_val, y_val, normalize='true', values_format='.2f')
 confusion_matrix.figure_.suptitle("Gaussian Naive-Bayes Confusion Matrix")
 plt.show()
