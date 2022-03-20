@@ -8,12 +8,12 @@ from sklearn.metrics import classification_report, plot_confusion_matrix
 from keras.utils.np_utils import to_categorical
 from keras.models import Sequential
 from keras.optimizers import adam_v2
-from keras.layers import Dense,Dropout,Flatten,Conv2D,MaxPool2D,BatchNormalization
+from keras.layers import Dense,Dropout,Flatten,Conv2D,AveragePooling2D,BatchNormalization
 from keras.callbacks import ReduceLROnPlateau
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import LearningRateScheduler
 
-#from pca import digits_pca
+from pca import digits_pca
 
 digits = pd.read_csv('data/train.csv')
 
@@ -38,7 +38,7 @@ model.add(BatchNormalization())
 model.add(Conv2D(filters = 32, kernel_size = (5,5),padding = 'Same',
                  activation ='relu'))
 model.add(BatchNormalization())
-model.add(MaxPool2D(pool_size=(2,2)))
+model.add(AveragePooling2D(pool_size=(2,2)))
 model.add(BatchNormalization())
 model.add(Dropout(0.25))
 
@@ -48,7 +48,7 @@ model.add(BatchNormalization())
 model.add(Conv2D(filters = 64, kernel_size = (3,3),padding = 'Same',
                  activation ='relu'))
 model.add(BatchNormalization())
-model.add(MaxPool2D(pool_size=(2,2), strides=(2,2)))
+model.add(AveragePooling2D(pool_size=(2,2), strides=(2,2)))
 model.add(BatchNormalization())
 model.add(Dropout(0.25))
 
