@@ -4,12 +4,12 @@ from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import classification_report, plot_confusion_matrix
 import matplotlib.pyplot as plt
-from pca import digits_pca
+from pca import digits_train_pca
 
 # digits = pd.read_csv('data/train.csv')
 
-x = digits_pca.iloc[:, 1:]
-y = digits_pca.loc[:, 'label']
+x = digits_train_pca.iloc[:, 1:]
+y = digits_train_pca.loc[:, 'label']
 
 x_train, x_val, y_train, y_val = train_test_split(x, y, test_size=0.2)
 
@@ -22,6 +22,9 @@ print(len(y_val))
 gnb = GaussianNB()
 gnb.fit(x_train, y_train)
 predicted = gnb.predict(x_val)
+
+print(predicted)
+print(predicted.shape)
 
 scores = cross_val_score(gnb, x_val, y_val, cv=5)
 print('scores per fold ', scores)
