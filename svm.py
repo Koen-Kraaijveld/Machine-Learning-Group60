@@ -5,21 +5,18 @@ from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import classification_report, plot_confusion_matrix
 import matplotlib.pyplot as plt
-from pca import digits_train_pca, digits_test_pca, x_train, y_train, x_test
+from pca import digits_train_pca, digits_test_pca
 from file_output import output_file
 
 # digits_test = pd.read_csv('data/test.csv')
 
-# x_train = digits_train_pca.iloc[:, 1:]
-# y_train = digits_train_pca.loc[:, 'label']
-#
-# x_test = digits_test_pca
+x_train = digits_train_pca.iloc[:, 1:]
+y_train = digits_train_pca.loc[:, 'label']
 
-# print(len(x_train))
-# print(len(y_train))
-#
-# print(len(x_val))
-# print(len(y_val))
+x_test = digits_test_pca
+
+print(len(x_train))
+print(len(y_train))
 
 # param_grid = {
 #     'C': [0.1, 1, 10, 100, 1000],
