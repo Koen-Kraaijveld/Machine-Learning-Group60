@@ -14,7 +14,7 @@ y_train = digits_train.loc[:, 'label']
 x_test = digits_test / 255
 print(x_test)
 
-n_components = 12
+n_components = 330
 
 train_pca = PCA(n_components)
 train_components = train_pca.fit_transform(x_train)
@@ -22,16 +22,23 @@ train_components = train_pca.fit_transform(x_train)
 test_pca = PCA(n_components)
 test_components = test_pca.fit_transform(x_test)
 
-print(test_components)
+print(train_components.shape)
+print(test_components.shape)
 
 columns = []
 for i in range(n_components):
     columns.append('PC' + str(i+1))
 
+print(columns)
+
 digits_train_pca_df = pd.DataFrame(data=train_components, columns=columns)
 digits_train_pca = pd.concat([digits_train[['label']], digits_train_pca_df], axis=1)
 
 digits_test_pca = pd.DataFrame(data=test_components, columns=columns)
+
+print(digits_train_pca.shape)
+print(digits_test_pca.shape)
+
 
 
 # variance = pca.explained_variance_ratio_
@@ -43,4 +50,3 @@ digits_test_pca = pd.DataFrame(data=test_components, columns=columns)
 # plt.ylabel('Variance')
 #
 # plt.show()
-

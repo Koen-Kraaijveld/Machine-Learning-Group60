@@ -12,13 +12,10 @@ from file_output import output_file
 x_train = digits_train_pca.iloc[:, 1:]
 y_train = digits_train_pca.loc[:, 'label']
 
-x_test = digits_test_pca.iloc[:, 1:]
+x_test = digits_test_pca
 
-# print(x_train)
-# print(x_train.shape)
-#
-# print(x_test)
-# print(x_test.shape)
+print(x_train.shape)
+print(x_test.shape)
 
 knn = KNeighborsClassifier(7)
 knn.fit(x_train, y_train)
