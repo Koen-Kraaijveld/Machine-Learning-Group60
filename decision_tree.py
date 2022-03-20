@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.naive_bayes import GaussianNB
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import classification_report, plot_confusion_matrix
 import matplotlib.pyplot as plt
 from pca import digits_pca
@@ -19,17 +19,17 @@ print(len(x_val))
 print(len(y_train))
 print(len(y_val))
 
-gnb = GaussianNB()
-gnb.fit(x_train, y_train)
-predicted = gnb.predict(x_val)
+tree = DecisionTreeClassifier(criterion='entropy', min_samples_split=4, min_samples_leaf=3)
+tree.fit(x_train, y_train)
+predicted = tree.predict(x_val)
 
-scores = cross_val_score(gnb, x_val, y_val, cv=5)
+scores = cross_val_score(tree, x_val, y_val, cv=5)
 print('scores per fold ', scores)
 print('mean score    ', np.mean(scores))
 print('standard dev. ', np.std(scores))
 
 print(classification_report(y_val, predicted))
 
-confusion_matrix = plot_confusion_matrix(gnb, x_val, y_val)
-confusion_matrix.figure_.suptitle("Gaussian Naive-Bayes Confusion Matrix")
+confusion_matrix = plot_confusion_matrix(tree, x_val, y_val, normalize='true', values_format='.2f')
+confusion_matrix.figure_.suptitle("Decision Tree Confusion Matrix")
 plt.show()

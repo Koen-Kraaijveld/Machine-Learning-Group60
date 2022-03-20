@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 digits = pd.read_csv('data/train.csv')
 
-x = digits.iloc[:, 1:]
+x = digits.iloc[:, 1:] / 255
 y = digits.loc[:, 'label']
 
 n_components = 12
