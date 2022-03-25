@@ -2,8 +2,8 @@ import pandas as pd
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 
-digits_train = pd.read_csv('data/train.csv')
-digits_test = pd.read_csv('data/test.csv')
+digits_train = pd.read_csv('../data/train.csv')
+digits_test = pd.read_csv('../data/test.csv')
 
 x_train = digits_train.iloc[:, 1:] / 255
 y_train = digits_train.loc[:, 'label']
@@ -25,14 +25,3 @@ digits_train_pca_df = pd.DataFrame(data=train_components, columns=columns)
 digits_train_pca = pd.concat([digits_train[['label']], digits_train_pca_df], axis=1)
 
 digits_test_pca = pd.DataFrame(data=test_components, columns=columns)
-
-# variance = pca.explained_variance_ratio_
-# plt.scatter(columns, variance)
-# plt.plot(columns, variance)
-#
-# plt.title('Variance of each Principal Component')
-# plt.xlabel('Component')
-# plt.ylabel('Variance')
-#
-# plt.show()
-

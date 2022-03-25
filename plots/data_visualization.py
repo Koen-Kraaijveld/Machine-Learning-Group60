@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 
-digits = pd.read_csv('data/train.csv')
+digits = pd.read_csv('../data/train.csv')
 
 x = digits.iloc[:, 1:]
 y = digits.loc[:, 'label']

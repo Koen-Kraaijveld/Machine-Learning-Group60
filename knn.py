@@ -14,25 +14,8 @@ y_train = digits_train_pca.loc[:, 'label']
 
 x_test = digits_test_pca
 
-print(x_train.shape)
-print(x_test.shape)
-
 knn = KNeighborsClassifier(7)
 knn.fit(x_train, y_train)
 predicted_y_test = knn.predict(x_test)
 
-print(predicted_y_test)
-print(predicted_y_test.shape)
-
 output_file("results/knn.csv", predicted_y_test)
-
-# scores = cross_val_score(knn, x_val, y_val, cv=5)
-# print('scores per fold ', scores)
-# print('mean score    ', np.mean(scores))
-# print('standard dev. ', np.std(scores))
-#
-# print(classification_report(y_val, predicted))
-#
-# confusion_matrix = plot_confusion_matrix(knn, x_val, y_val, normalize='true', values_format='.2f')
-# confusion_matrix.figure_.suptitle("K-nearest Neighbours Confusion Matrix")
-# plt.show()

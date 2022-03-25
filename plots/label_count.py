@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-digits = pd.read_csv('data/train.csv')
+digits = pd.read_csv('../data/train.csv')
 
 label = digits.loc[:, 'label']
 count = label.value_counts().sort_index().plot(kind='barh')
