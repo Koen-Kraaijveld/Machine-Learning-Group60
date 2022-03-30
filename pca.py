@@ -26,6 +26,9 @@ digits_train_pca = pd.concat([digits_train[['label']], digits_train_pca_df], axi
 
 digits_test_pca = pd.DataFrame(data=test_components, columns=columns)
 
+print(train_pca.explained_variance_ratio_)
+print(train_pca.explained_variance_)
+
 # variance = pca.explained_variance_ratio_
 # plt.scatter(columns, variance)
 # plt.plot(columns, variance)
