@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
+from pca_2 import train_pca as train_pca_2
 
 digits_train = pd.read_csv('../data/train.csv')
 
@@ -24,22 +25,24 @@ plt.ylabel('Cumulative variance (%)')
 plt.title('The number of components needed to explain variance')
 plt.margins(x=0)
 
-plt.axhline(y=0.95, color='r', linestyle='dashed')
-plt.axhline(y=0.99, color='g', linestyle='dashed')
-# plt.text(0.5, 0.85, '95% cut-off threshold', color = 'red', fontsize=16)
 
 for line in ax.get_lines():
     x, y = line.get_data()
 
     try:
+        ind_90 = np.argwhere(y >= 0.90)[0][0]
+        plt.plot(x[ind_90], y[ind_90], 'mo')
+        plt.axhline(y=0.90, color='m', linestyle='dashed')
+        ax.annotate('90% variance: ' + str(ind_90), xy=(ind_90, 0.90), xytext=(ind_90, 0.82), fontsize=12)
+
         ind_95 = np.argwhere(y >= 0.95)[0][0]
-        print("Number of components to achieve variance 0.95: " + str(ind_95))
         plt.plot(x[ind_95], y[ind_95], 'ro')
-        ax.annotate('95% variance: ' + str(ind_95), xy=(ind_95, 0.95), xytext=(ind_95, 0.88), fontsize=12)
+        plt.axhline(y=0.95, color='r', linestyle='dashed')
+        ax.annotate('95% variance: ' + str(ind_95), xy=(ind_95, 0.95), xytext=(ind_95, 1.03), fontsize=12)
 
         ind_99 = np.argwhere(y >= 0.99)[0][0]
-        print("Number of components to achieve variance 0.99: " + str(ind_99))
         plt.plot(x[ind_99], y[ind_99], 'go')
+        plt.axhline(y=0.99, color='g', linestyle='dashed')
         ax.annotate('99% variance: ' + str(ind_99), xy=(ind_99, 0.99), xytext=(ind_99, 1.03), fontsize=12)
 
     except TypeError:
